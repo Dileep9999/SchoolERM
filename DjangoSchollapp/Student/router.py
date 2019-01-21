@@ -6,6 +6,6 @@ urlpatterns = [
     path('get/<className>/<from>/<to>',views.get_Students_byClass.as_view()),
     path('get/<className>',views.get_Students_byClass.as_view()),
     path('update/<id>',views.Student_Update.as_view()),
-    path('atadd',views.Student_Attendece.as_view())
+    path('att_add',views.Add_Student_Attendace.as_view())
 ]
 

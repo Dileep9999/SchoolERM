@@ -43,13 +43,13 @@ export default class SideNav extends React.Component {
     };
   
     handleClick = submenu => (event,av)=>{
-      console.log(submenu,event);
-      
       this.setState({menu:submenu});
       this.setState({ anchorEl: event.currentTarget });
     };
+
+
     componentWillReceiveProps(){
-      this.setState({content:this.props.open})
+     
       this.setState({mobile:!this.state.mobile})
     }
    
@@ -58,13 +58,14 @@ export default class SideNav extends React.Component {
    }
 
    click=()=>{
-     this.setState({content:!this.state.content})
+     this.setState({content:!this.state.content?true:false})
    }
    toggleDrawer=(state)=>(event,s)=>{
      this.setState({mobile:state})
    }
-   sidemenu_details=[
-     {
+
+   sidemenu_details=()=>{
+     return [{
        name:"DashBoard",
        image:require("../images/home.png"),
        submenu:[
@@ -176,14 +177,14 @@ export default class SideNav extends React.Component {
       ],
       role:"All"
     }
-   ]
+   ]}
         render() {
           let content;
-          const open=Boolean(this.state.anchorEl)
-          if(this.state.content){
+
+          if(!this.props.open){
           content=(<div style={{'paddingBottom':'3cm'}}>
-             <img height="30%" width="245px" src={require('../images/title.jpg')} />
-             {this.sidemenu_details.map(menu=>{
+             <img height="30%" width="245px" alt="img" src={require('../images/title.jpg')} />
+             {this.sidemenu_details().map(menu=>{
                  return (
                   <ExpansionPanel expanded={this.state.expanded===menu.name} onChange={this.menuexpand(menu.name)}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -214,9 +215,9 @@ export default class SideNav extends React.Component {
         );
           }else{
            content=<div>
-           {this.sidemenu_details.map(menu=>{
+           {this.sidemenu_details().map(menu=>{
              return (<Paper elevation={2}>
-             <img height="25px" style={{'padding':'20px'}} src={menu.image} onClick={this.handleClick(menu.submenu)}/>
+             <img height="25px" style={{'padding':'20px'}} alt={'menu.image'} src={menu.image} onClick={this.handleClick(menu.submenu)}/>
              
             
              </Paper>
@@ -266,7 +267,7 @@ export default class SideNav extends React.Component {
                  
                  <div style={{'paddingBottom':'3cm'}}>
              <img height="30%" width="300px" src={require('../images/title.jpg')} />
-             {this.sidemenu_details.map(menu=>{
+             {this.sidemenu_details().map(menu=>{
                  return (
                   <ExpansionPanel expanded={this.state.expanded===menu.name} onChange={this.menuexpand(menu.name)}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>

@@ -47,3 +47,32 @@ class Teacher(models.Model):
         return self.name
 
 
+class Teacher_Attendance(models.Model):
+    status=(
+        ('A','Absent'),
+        ('CL','Casual Leave'),
+        ('SL','Sick Leave'),
+        ('O','Other')
+    )
+    Date=models.DateField()
+    createdAt=models.DateTimeField(auto_now_add=True)
+    Added_By=models.OneToOneField(User,on_delete=models.CASCADE,blank=True,null=True)
+    Status=models.CharField(choices=status,max_length=20)
+
+    # def __str__(self):
+    #     return self.Date
+
+class Teacher_Leave(models.Model):
+    FromDate=models.DateField()
+    ToDate=models.DateField()
+    Approved=models.BooleanField(default=False)
+    Teacher=models.ForeignKey(Teacher,on_delete=models.PROTECT)
+    Approver=models.ForeignKey(User,on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.Teacher.name
+
+# class Teacher_Time_Tabel(models.Model):
+
+
+

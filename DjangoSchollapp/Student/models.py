@@ -6,7 +6,7 @@ from user.models import User
 import os
 # Create your models here.
 def images_path(instance,name):
-    return '/'.join(['student',str(instance.id),str(os.path.splitext(name))])
+    return '/'.join(['student',str(instance.id)+str(name.split('.')[-1])])
 
 class Student(models.Model):
     BOOLDGROUPS=(
@@ -39,8 +39,9 @@ class Student(models.Model):
 
     def __str__(self):
         return "{}({})".format(self.name,self.className)
-
-class StudentAttendence(models.Model):
+        
+# only Stores Absent Dates
+class StudentAttendance(models.Model):
     student=models.ForeignKey(Student,on_delete=models.CASCADE)
     present=models.BooleanField()
     added_by=models.CharField(max_length=180)

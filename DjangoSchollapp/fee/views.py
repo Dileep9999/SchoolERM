@@ -25,3 +25,5 @@ class Add_fee(generics.CreateAPIView):
 class get_fee(generics.RetrieveUpdateDestroyAPIView):
     queryset=Fee.objects.all()
     serializer_class=FeeSerializer
+
+

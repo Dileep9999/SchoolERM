@@ -9,8 +9,14 @@ from .jwt import gen_token
 # import bcrypt
 from django.contrib.auth.hashers import check_password
 from .permissions import IsAdminUser,IsStaffORAdmin,IsAuthenticated
+from Student.models import Student
+from Teacher.models import Teacher
+from Staff.models import Staff
+import datetime as date
 
 # Create your views here.
+print(date.datetime.now().day)
+
 
 class login(generics.GenericAPIView):
     permission_classes=(AllowAny,)
@@ -115,3 +121,72 @@ class Password_update(generics.GenericAPIView):
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST,content_type='application/json')
 
 
+
+
+class Admin_DashBoard(APIView):
+    def get(self,request):
+        try:
+            Students,Teachers,Staffs=[s for s in Student.objects.all()],[T for T in Teacher.objects.all()],[S for S in Staff.objects.all()]
+            Students_Birthdays=[
+                {
+                    'Name':s.name,
+                    'Class':s.className.className, 
+                    'image':s.Image.url if s.Image else None
+                } 
+                for s in Student.objects.filter(DOB__day=date.datetime.now().day,DOB__month=date.datetime.now().month)]
+            Teachers_Birthdays=[
+                {
+                    'name':T.name,
+                    'mobile':T.PhoneNumber,
+                    'image': T.Image.url if T.Image else None
+                } 
+                for T in Teacher.objects.filter(DOB__day=date.datetime.now().day,DOB__month=date.datetime.now().month)]
+            Staffs_Birthdays=[
+                {
+                    'name':S.name,
+                    'mobile':S.Phone,
+                    'image':S.Image
+                }
+                for S in Staff.objects.filter(DOB__day=date.datetime.now().day,DOB__month=date.datetime.now().month)]
+            return Response(
+                {
+                    'Total_Students':len(Students),
+                    'Total_Teachers':len(Teachers),
+                    'Total_Staff':len(Staffs),
+                    'Student_Birthdays':Students_Birthdays,
+                    'Teacher_Birthdays':Teachers_Birthdays,
+                    'Staff_Birthdays':Staffs_Birthdays,
+                    'Attendance_Status':'Pending........',
+                    'Fee':'Fee also pending.....'
+                }
+                ,status=200)
+        except ValueError as e:
+            return Response(e,status=500)
+        
+     
+
+class Student_Dashboard(APIView):
+    def get(self,request):
+        return Response(
+            {
+                'Attendance_Till_Date':'',
+                'Class_teacher':'',
+                'Class_mates':'',
+                'Upcoming_events':'',
+                'Last_PAid_fee':'',
+                'Time_Table':''
+            },
+            status=200 
+        )
+
+class Teacher_Dashboard(APIView):
+    def get(self,request):
+        return Response(
+            {
+                'Time_Table':'',
+                'Last_Leave':'',
+                'Assigned_Subjects':'',
+                'Class_Teacher_of_and_Attendance_taken?':'',
+                'Upcoming_events':''
+            }
+        )

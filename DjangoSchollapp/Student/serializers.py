@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Student,StudentAttendence
+from .models import Student,StudentAttendance
 from rest_framework.validators import UniqueValidator
 
 class StudentSerilaizer(serializers.ModelSerializer):
@@ -10,20 +10,20 @@ class StudentSerilaizer(serializers.ModelSerializer):
         fields=('id','name','roll_number','Image','className','FirstName','LastName','user')
     
 
-class StudentAttendeceSerializer(serializers.ModelSerializer):
+class StudentAttendaceSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model=StudentAttendence
-        fields=('__all__')
+        model=StudentAttendance
+        fields='__all__'
                 # custom_error_messages_for_validators = {
         #     'Date':{
         #         UniqueValidator:"Attendence Already took"
         #     }
         # }
-        validators = [
-            serializers.UniqueTogetherValidator(
-                queryset=StudentAttendence.objects.all(),
-                fields=('student', 'Date'),
-                message="Attendence Already taken."
-            )
-        ]
+        # validators = [
+        #     serializers.UniqueTogetherValidator(
+        #         queryset=StudentAttendence.objects.all(),
+        #         fields=('student', 'Date'),
+        #         message="Attendence Already taken."
+        #     )
+        # ]

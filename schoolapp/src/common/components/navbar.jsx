@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+
 import Typography from '@material-ui/core/Typography'
 import { MenuItem, Paper } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
@@ -29,19 +29,25 @@ class NavBar extends React.Component{
       anchorEl1:null,
       sidemenutype:"persistant",
       opensidenav:true
-      };
+          };
+
+
       handleClick = event => {
         this.setState({ anchorEl: event.currentTarget });
       };
+
       handleClick1 = event => {
         this.setState({ anchorEl1: event.currentTarget });
       };
+
       handleClose = () => {
         this.setState({ anchorEl: null });
       };
+
       handleClose1 = () => {
         this.setState({ anchorEl1: null });
       };
+
       mobilesidemenu=()=>{
         this.setState({ sidemenutype:"temporary",opensidenav:true})
       }
@@ -86,27 +92,39 @@ class NavBar extends React.Component{
                           open={open}
                           onClose={this.handleClose}
                           className="menu"
-                          style={{'marginTop':'1cm'}}
-
-                        >
-
-
-        
-       
-          <MenuItem onClick={this.handleClose} 
-          getContentAnchorEl={null}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          ><List >
+                          style={{'margin':'1cm 2cm 0 0','height':'20cm'}}
+                         
+                      >
+          <MenuItem onClick={this.handleClose}
+          >
+          <List >
           <ListItem>
             <Avatar>
               <ImageIcon />
             </Avatar>
             <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-          </ListItem></List></MenuItem>
+          </ListItem></List>
+          
+          </MenuItem>
 
-          <MenuItem onClick={this.handleClose}>My account</MenuItem>
-          <MenuItem onClick={this.handleClose}>Logout</MenuItem> 
+          <MenuItem onClick={this.handleClose}>
+          <List >
+          <ListItem>
+            <Avatar>
+              <ImageIcon />
+            </Avatar>
+            <ListItemText primary="My Profile" secondary="Jan 9, 2014" />
+          </ListItem></List>
+          </MenuItem>
+          <MenuItem onClick={this.handleClose}>
+          <List >
+          <ListItem>
+            <Avatar>
+              <ImageIcon />
+            </Avatar>
+            <ListItemText primary="Logout" />
+          </ListItem></List>
+          </MenuItem> 
 
 
         </Menu>
@@ -120,7 +138,7 @@ class NavBar extends React.Component{
                     </IconButton>
             <Menu
                     id="fade-menu"
-                    anchorEl={this.state.anchorEl}
+                    anchorEl={this.state.anchorEl1}
                     open={open}
                     onClose={this.handleClose}
                     className="menu"

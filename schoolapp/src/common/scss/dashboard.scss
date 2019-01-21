@@ -2,28 +2,24 @@ Button{
     background: red;
 }
 
-.shadow{
-    
-    // z-index: 1500 !important;
-    transition: width 2s;
-}
 
 body{
     background: rgb(224, 224, 224)
 }
 
-.custumfonts{
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
-}
-@media only screen and (max-width: 780px) {
-    .sm {
-        display: none;
-    }
-}
 
 
 
-    
+// @media only screen and (max-width: 780px) {
+//     .sm {
+//         display: none;
+//     }
+//     .size{
+//         width:100%;
+//     }
+// }
+
+
 
 
 
@@ -78,4 +74,94 @@ body{
     
   }
   
+ 
+
+
+//   @for $i from 1 through 12 {
+//     .a-#{$i} {
+//       height:#{$i}cm ;
+//       background: red;
+
+//     }
+//   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 0) { 
+    .sm{
+        display: none;
+    }
+   
+   
+
+}
+
+@media  (min-width: 576px) { 
+    .sm{
+        display: none;
+    }
+   
+}
+
+// md --- Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { 
+    .sm{
+        display: flex;
+    }
+   
+
+ }
+
+// lg --- Large devices (desktops, 992px and up)
+@media (min-width: 958px) { 
+    .sm{
+        display: flex;
+    }
+   
+ }
+
+// xl --- Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { 
+    .sm{
+        display: flex;
+    }
+  
+    
+
+ }
+.hover{
+    transition: all 0.2s ease-in-out;
+    
+    &:hover{
+        cursor: pointer;
+    
+        transform: scale(1.05)
+    }
+}
+
 

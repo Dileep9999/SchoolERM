@@ -1,11 +1,12 @@
-const authcheck=function(nextState,replace){
-  console.log("=============");
+const authcheck=function(){
+  let user;
+  try {
+     user=JSON.parse(localStorage.getItem('uinfo'));
+  } catch (error) {
+    return false
+  }
+  return user['Role']
   
-    if (true) {
-        replace({
-          pathname: '/login'
-        })
-      }
 }
 
 export default authcheck;

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
 from user.permissions import IsAdminUser
-from .serializers import StudentSerilaizer,StudentAttendeceSerializer
+from .serializers import StudentSerilaizer,StudentAttendaceSerializer
 from .models import Student
 
 # Create your views here.
@@ -47,8 +47,8 @@ class Student_Update(generics.UpdateAPIView):
     lookup_field='id'
     serializer_class=StudentSerilaizer
 
-class Student_Attendece(generics.CreateAPIView):
-    serializer_class=StudentAttendeceSerializer
+class Add_Student_Attendace(generics.CreateAPIView):
+    serializer_class=StudentAttendaceSerializer
     def create(self,request,*args,**kwargs):
         if len(request.data):
             errors=[]
@@ -56,7 +56,8 @@ class Student_Attendece(generics.CreateAPIView):
                 print(request.data[i])
                 serializer = self.get_serializer(data=request.data[i])
                 if serializer.is_valid():
-                    serializer.save()
+                    if not serializer.data['present']:
+                        serializer.save()
                     # return Response(serializer.data)
                 else:
                     # return Response(serializer.errors)
